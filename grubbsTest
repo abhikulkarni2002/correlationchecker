@@ -1,0 +1,28 @@
+import numpy as np
+from scipy.stats import t
+import pandas as pd
+
+#to check for any big outliers in some data set.
+
+def grubbs_test(data, alpha):
+    n = len(data)
+    critical_value = t.ppf(1 - alpha / (2 * n), n - 2)
+    mean = np.mean(data)
+    std = np.std(data, ddof=1)
+    max_deviation_index = np.argmax(np.abs(data - mean))
+    max_deviation = np.abs(data[max_deviation_index] - mean)
+    critical_value *= (n - 1) / np.sqrt(n) * np.sqrt((n - 2 + critical_value**2) / (n - 1 + critical_value**2))
+    if max_deviation > critical_value:
+        return max_deviation_index
+    else:
+        return None
+    
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\W11_202221_2022223_10 Minutes.csv")
+data = df['NacWSpeedMean_mps'][0:2269].values
+confidence_value = 0.5
+
+outlier_index = grubbs_test(data, confidence_value)
+if outlier_index is not None:
+    print(f"Outlier detected at index {outlier_index}: {data[outlier_index]}")
+else:
+    print("No outliers detected.")
