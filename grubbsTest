@@ -18,7 +18,7 @@ def grubbs_test(data, alpha):
         return None
     
 df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\W11_202221_2022223_10 Minutes.csv")
-data = df['NacWSpeedMean_mps'][0:2269].values
+data = df['kW_Mean'][0:2269].values
 confidence_value = 0.5
 
 outlier_index = grubbs_test(data, confidence_value)
