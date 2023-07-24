@@ -1,0 +1,29 @@
+import scipy.stats as stats
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\202365_202375_10 Minutes.csv")
+dat1 = df['kW_Mean'].values
+dat2 = df['TransformerTempWind3_Mean'].values
+
+correlation_coefficient, p_value = stats.spearmanr(dat1, dat2, nan_policy= 'omit')
+
+min1, max1 = np.min(dat1), np.max(dat1)
+min2, max2 = np.min(dat2), np.max(dat2)
+
+normDat1 = (dat1 - min1) / (max1 - min1)
+normDat2 = (dat2 - min2) / (max2 - min2)
+
+axis = np.arange(len(normDat1))
+fig, ax = plt.subplots()
+ax.plot(axis, normDat1, label = 'kW_mean')
+ax.plot(axis, normDat2, label = 'TransformerTempWind2_Mean')
+
+correlation_coefficient_str = f"{correlation_coefficient:.2f}" 
+p_value_str = f"{p_value:.2f}"
+textbox_props = dict(boxstyle='square,pad=0.3', facecolor='white', alpha=0.7)
+ax.text(0.05, 0.95, f"Correlation Coefficient: {correlation_coefficient_str}\nP-value: {p_value_str}", fontsize=10, ha='left', va='top', transform=ax.transAxes, bbox=textbox_props)
+
+ax.legend()
+plt.show()

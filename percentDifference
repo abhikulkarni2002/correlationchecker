@@ -1,0 +1,12 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\202365_202375_10 Minutes.csv")
+dat1 = df['kW_Mean'].values
+dat2 = df['TransformerTempWind3_Mean'].values
+
+avg = ((dat2 - dat1) / (np.absolute(dat1))) * 100
+
+avg_value = np.average(avg)
+print(avg_value)

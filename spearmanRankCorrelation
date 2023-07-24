@@ -1,11 +1,14 @@
 import scipy.stats as stats
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
-df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\W11_202221_2022223_10 Minutes.csv")
-windSpeed = df['NacWSpeedMean_mps'][0:2269].values
-transfTempWind = df['TransformerTempWind3_Mean'][0:2269].values
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\202365_202375_10 Minutes.csv")
+dat1 = df['kW_Mean'].values
+dat2 = df['TransformerTempWind3_Mean'].values
 
-correlation_coefficient, p_value = stats.spearmanr(windSpeed, transfTempWind)
-
+correlation_coefficient, p_value = stats.spearmanr(dat1, dat2, nan_policy= 'omit')
+print(dat1)
+print(dat2)
 print("Correlation coefficient:", correlation_coefficient)
 print("P-value", p_value)

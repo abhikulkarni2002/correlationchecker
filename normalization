@@ -1,0 +1,21 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\202365_202375_10 Minutes.csv")
+dat1 = df['kW_Mean'].values
+dat2 = df['TransformerTempWind2_Mean'].values
+
+min1, max1 = np.min(dat1), np.max(dat1)
+min2, max2 = np.min(dat2), np.max(dat2)
+
+# Normalize the time series using min-max scaling
+normDat1 = (dat1 - min1) / (max1 - min1)
+normDat2 = (dat2 - min2) / (max2 - min2)
+
+axis = np.arange(len(normDat1))
+fig, ax = plt.subplots()
+ax.plot(axis, normDat1, label = 'kW_mean')
+ax.plot(axis, normDat2, label = 'TransformerTempWind2_Mean')
+ax.legend()
+plt.show()
