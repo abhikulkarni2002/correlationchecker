@@ -3,9 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\Downloads\\202365_202375_10 Minutes.csv")
-dat1 = df['kW_Mean'].values
-dat2 = df['TransformerTempWind3_Mean'].values
+var1 = 'kW_Mean'
+var2 = 'TransformerTempWind1_Mean'
+
+df = pd.read_csv("C:\\Users\\Abhijeet.Kulkarni\\OneDrive - Leeward Asset Management LLC\\Documents\\Gamesa Project\\Transformer Failure Study\\GSG_W11_222\\W11_202221_2022223_10 Minutes.csv")
+dat1 = df[var1].values
+dat2 = df[var2].values
 
 correlation_coefficient, p_value = stats.spearmanr(dat1, dat2, nan_policy= 'omit')
 
@@ -17,8 +20,8 @@ normDat2 = (dat2 - min2) / (max2 - min2)
 
 axis = np.arange(len(normDat1))
 fig, ax = plt.subplots()
-ax.plot(axis, normDat1, label = 'kW_mean')
-ax.plot(axis, normDat2, label = 'TransformerTempWind2_Mean')
+ax.plot(axis, normDat1, label = var1)
+ax.plot(axis, normDat2, label = var2)
 
 correlation_coefficient_str = f"{correlation_coefficient:.2f}" 
 p_value_str = f"{p_value:.2f}"
